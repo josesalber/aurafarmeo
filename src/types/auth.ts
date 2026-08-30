@@ -7,3 +7,5 @@ export interface GuestSession {
 export interface GuestStartPayload {
   username: string;
 }
+
+export type SessionRole = 'FARMER' | 'JUROR';

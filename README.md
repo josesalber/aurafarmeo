@@ -1,6 +1,6 @@
 # FARMEAR AURA - Aura Battle
 
-Frontend React + TypeScript para batallas en vivo con camaras, aura, votos y chat. No requiere cuenta: se entra con nombre temporal en memoria.
+Frontend React + TypeScript para batallas en vivo con camaras, aura, votos y chat. No requiere cuenta: se entra con nombre temporal en memoria y luego se elige `FARMEAR AURA` o `SER JURADO`.
 
 ## Instalacion
 
@@ -28,7 +28,7 @@ npm run lint
 
 ## Arquitectura
 
-`src/pages` contiene rutas principales. `src/components` separa UI base, batalla, video, votos, aura, lobby y comunes. `src/store` usa Zustand para auth temporal, batalla y estado UI. `src/services` contiene REST, WebSocket/STOMP y LiveKit aislados.
+`src/pages` contiene rutas principales. `src/components` separa UI base, batalla, video, votos, aura, lobby y comunes. `src/store` usa Zustand para auth temporal, rol de sesion, batalla y estado UI. `src/services` contiene REST, WebSocket/STOMP y LiveKit aislados.
 
 ## Variables
 
@@ -49,6 +49,16 @@ La app consume backend real por defecto:
 VITE_USE_MOCKS=false
 VITE_API_URL=https://backend-aura-olha.onrender.com
 VITE_WS_URL=wss://backend-aura-olha.onrender.com/ws
+```
+
+Flujo principal:
+
+```text
+Nombre temporal
+CONSULTANDO
+FARMEAR AURA -> /api/battles/matchmaking -> batalla en espera/activa
+SER JURADO -> /api/battles/jury/random -> batalla para votar
+Sala privada -> /api/battles/private/join -> batalla por codigo
 ```
 
 ## API

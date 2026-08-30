@@ -3,6 +3,7 @@ import { Eye, Radio, Swords } from 'lucide-react';
 import { useBattle } from '../hooks/useBattle';
 import { useBattleSocket } from '../hooks/useBattleSocket';
 import { useLiveKit } from '../hooks/useLiveKit';
+import { useAuthStore } from '../store/authStore';
 import { useBattleStore } from '../store/battleStore';
 import { useUiStore } from '../store/uiStore';
 import { formatNumber } from '../lib/utils';
@@ -22,7 +23,9 @@ export function BattlePage() {
   useBattleSocket(battleId);
   const liveKit = useLiveKit(battleId);
   const state = useBattleStore();
+  const role = useAuthStore((auth) => auth.role);
   const socketStatus = useUiStore((ui) => ui.socketStatus);
+  const isFarmer = role === 'FARMER';
 
   if (!battleId || isLoading || !state.battle) {
     return <main className="mx-auto max-w-7xl px-4 py-8"><BattleLoading /></main>;
@@ -67,15 +70,22 @@ export function BattlePage() {
           <VotePanel battleId={battleId} playerA={state.playerA} playerB={state.playerB} votesA={state.votesA} votesB={state.votesB} />
         </section>
         <aside className="space-y-4">
-          <div className="rounded-lg border border-white/10 bg-black/25 p-4">
-            <h2 className="mb-3 font-display text-lg text-white">Controles</h2>
-            <MediaControls
-              cameraEnabled={liveKit.cameraEnabled}
-              microphoneEnabled={liveKit.microphoneEnabled}
-              onToggleCamera={() => void liveKit.toggleCamera()}
-              onToggleMicrophone={() => void liveKit.toggleMicrophone()}
-            />
-          </div>
+          {isFarmer ? (
+            <div className="rounded-lg border border-white/10 bg-black/25 p-4">
+              <h2 className="mb-3 font-display text-lg text-white">Controles</h2>
+              <MediaControls
+                cameraEnabled={liveKit.cameraEnabled}
+                microphoneEnabled={liveKit.microphoneEnabled}
+                onToggleCamera={() => void liveKit.toggleCamera()}
+                onToggleMicrophone={() => void liveKit.toggleMicrophone()}
+              />
+            </div>
+          ) : (
+            <div className="rounded-lg border border-cyan-300/20 bg-cyan-300/10 p-4">
+              <h2 className="font-display text-lg text-white">Modo jurado</h2>
+              <p className="mt-2 text-sm text-slate-300">Vota por el ganador mientras ves la batalla en vivo.</p>
+            </div>
+          )}
           <BattleChat battleId={battleId} />
           <Button asChild variant="secondary" className="w-full">
             <Link to="/lobby">Volver al lobby</Link>

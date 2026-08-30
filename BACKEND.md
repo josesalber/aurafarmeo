@@ -18,6 +18,9 @@ No enviar secretos por variables `VITE_*`. El token de LiveKit debe generarse en
 ```http
 GET  /api/battles
 GET  /api/battles/{id}
+POST /api/battles/matchmaking
+POST /api/battles/jury/random
+POST /api/battles/private/join
 POST /api/battles/{id}/join
 POST /api/battles/{id}/leave
 POST /api/battles/{id}/vote
@@ -27,6 +30,59 @@ GET  /api/battles/{id}/livekit-token
 ## Sesion temporal
 
 No se requiere auth para frontend actual. Si backend decide identificar participantes, puede aceptar un `displayName` en `join` o emitir una identidad temporal desde `/api/battles/{id}/join`.
+
+## Entrada a batalla
+
+Farmer:
+
+```http
+POST /api/battles/matchmaking
+```
+
+```json
+{
+  "displayName": "Player"
+}
+```
+
+Jurado aleatorio:
+
+```http
+POST /api/battles/jury/random
+```
+
+```json
+{
+  "displayName": "Viewer"
+}
+```
+
+Sala privada:
+
+```http
+POST /api/battles/private/join
+```
+
+```json
+{
+  "code": "ABC123",
+  "displayName": "Viewer"
+}
+```
+
+Respuesta comun:
+
+```json
+{
+  "battleId": "arena-001"
+}
+```
+
+Luego frontend llama:
+
+```http
+GET /api/battles/{id}
+```
 
 ## Vote request
 

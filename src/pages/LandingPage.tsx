@@ -10,7 +10,7 @@ export function LandingPage() {
     <main className="mx-auto grid min-h-[calc(100vh-4rem)] max-w-7xl items-center gap-10 px-4 py-10 lg:grid-cols-[0.9fr_1.1fr]">
       <section>
         <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-fuchsia-300/30 bg-fuchsia-300/10 px-4 py-2 text-sm font-bold uppercase text-fuchsia-100">
-          <Radio aria-hidden="true" className="size-4" />
+          <img src="/logo.png" alt="" aria-hidden="true" className="size-5 rounded-sm object-contain" />
           Batallas en vivo
         </div>
         <h1 className="font-display text-5xl leading-tight text-white sm:text-6xl lg:text-7xl">
@@ -25,7 +25,7 @@ export function LandingPage() {
             <Link to="/login">Entrar a la arena</Link>
           </Button>
           <Button asChild size="lg" variant="secondary">
-            <Link to="/lobby">Ver batallas</Link>
+            <Link to="/login">Ser jurado</Link>
           </Button>
         </div>
       </section>

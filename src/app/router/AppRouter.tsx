@@ -3,6 +3,7 @@ import { AuthLayout } from '../../layouts/AuthLayout';
 import { MainLayout } from '../../layouts/MainLayout';
 import { LandingPage } from '../../pages/LandingPage';
 import { LoginPage } from '../../pages/LoginPage';
+import { ConsultingPage } from '../../pages/ConsultingPage';
 import { LobbyPage } from '../../pages/LobbyPage';
 import { BattlePage } from '../../pages/BattlePage';
 import { BattleResultPage } from '../../pages/BattleResultPage';
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
         element: <ProtectedRoute />,
         children: [
           { path: '/lobby', element: <LobbyPage /> },
+          { path: '/consultando', element: <ConsultingPage /> },
           { path: '/battle/:battleId', element: <BattlePage /> },
           { path: '/battle/:battleId/result', element: <BattleResultPage /> },
           { path: '/profile', element: <ProfilePage /> },

@@ -16,7 +16,7 @@ export function useAuth() {
     try {
       const response = await authApi.startGuestSession(payload);
       setGuest(response.user);
-      void navigate('/lobby');
+      void navigate('/consultando');
     } catch {
       toast({ title: 'No pudimos entrar a la arena', variant: 'destructive' });
     } finally {

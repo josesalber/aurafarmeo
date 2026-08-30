@@ -2,8 +2,27 @@ import type { Battle, BattleSummary } from '../../types/battle';
 import type { LiveKitTokenResponse } from '../../types/livekit';
 import { apiClient } from './axios';
 
+export interface BattleEntryResponse {
+  battleId: string;
+}
+
 export async function getBattles(): Promise<BattleSummary[]> {
   const { data } = await apiClient.get<BattleSummary[]>('/api/battles');
+  return data;
+}
+
+export async function enterFarmerQueue(displayName: string): Promise<BattleEntryResponse> {
+  const { data } = await apiClient.post<BattleEntryResponse>('/api/battles/matchmaking', { displayName });
+  return data;
+}
+
+export async function enterRandomJury(displayName: string): Promise<BattleEntryResponse> {
+  const { data } = await apiClient.post<BattleEntryResponse>('/api/battles/jury/random', { displayName });
+  return data;
+}
+
+export async function enterPrivateRoom(code: string, displayName: string): Promise<BattleEntryResponse> {
+  const { data } = await apiClient.post<BattleEntryResponse>('/api/battles/private/join', { code, displayName });
   return data;
 }
 

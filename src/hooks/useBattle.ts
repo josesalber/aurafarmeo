@@ -35,7 +35,7 @@ export function useBattle(battleId: string | undefined) {
     if (!battleId) return;
     setIsLoading(true);
     try {
-      const data = await battleApi.joinBattle(battleId);
+      const data = await battleApi.getBattle(battleId);
       setBattle(data);
     } catch {
       setError('La batalla ya termino.');
